@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- some metas -->
+    <meta name="author" content="Mohamed Tarek Rezk" />
+    <meta
+      name="description"
+      content="This is To do list Made by JS and TailWind Only"
+    />
+    <meta name="image" content="images/images.jpg" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- title -->
+    <title>Rezk || To-Do-List</title>
+    <!-- add image logo -->
+    <link rel="icon" href="images/logo.ico" />
+    <!-- linkfontawsom -->
+    <script
+      src="https://kit.fontawesome.com/ceb4f6e340.js"
+      crossorigin="anonymous"
+    ></script>
+    <!-- link Css files -->
+    <link rel="stylesheet" href="tailwind.css" />
+  </head>
+  <body>
+    <header class="">
+      <div class="header-continer">
+        <a href="#" class="logo">Rezk | To-Do-List</a>
+        <div class="flex gap-3">
+            <span class="leading-[60px] check-all"><img src="images/checklist.png" alt="" style="height: 40px"></span>
+            <span class="leading-[60px] uncheck-all"><img src="images/notDone.png" alt="" style="height: 40px"></span>
+            <span class="leading-[60px] delete-all"><img src="images/deleteAll.png" alt="" style="height: 40px"></span>
+        </div>
+      </div>
+    </header>
+    <main>
+      <div class="application">
+        <div class="cancle-div"></div>
+        <div class="to-do">
+        </div>
+
+        <div class="actions p-4">
+          <form class="flex justify-center gap-2">
+            <input
+              id="text" type="text" class="max-w-[650px] w-[100%] rounded-xl focus:outline-2 outline-secondary text-xl px-2  hover:scale transition-all duration-100"style="box-shadow: 1px 1px 3px 1px rgba(0, 0, 0, 0.092)"
+            />
+            <input
+              width="50px"
+              type="image"
+              src="images/add.png"
+              alt=""
+              class="hover:scale-110 transition-all duration-100"
+            />
+          </form>
+        </div>
+      </div>
+    </main>
+    <script src="main.js"></script>
+  </body>
+</html>
