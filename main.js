@@ -1,9 +1,29 @@
+if(window.localStorage.tasks === undefined || window.localStorage.status === undefined){
+    window.localStorage.tasks = '';
+    window.localStorage.status = ''
+}
+let OldTasks = window.localStorage.tasks.split("**|**")
+let oldStatus = window.localStorage.status.split("**|**")
+let oldData = []
+if(OldTasks.length === oldStatus.length && oldStatus.length > 0 && oldStatus[0] !== '')
+{
+    oldData = function(){
+        let ob = []
+        for(let i = 0; i < oldStatus.length ; i++){
+            ob.push({"task": OldTasks[i] , "status": +oldStatus[i]})
+        }
+        return ob;
+    }
+    oldData = oldData()
+}
 
 
 //starting with form submit'
-let tasks = []
+let tasks =  oldData;
 let toDo = document.querySelector(".to-do")
 let myForm = document.forms[0];
+showTasks()
+
 myForm.addEventListener("submit" , function(e){
     e.preventDefault();
     let task = text.value.trim();
@@ -14,6 +34,7 @@ myForm.addEventListener("submit" , function(e){
     text.value = ''
     toDo.innerHTML = ''
     showTasks();
+    updateLocal()
 })
 
 function showTasks(){
@@ -76,6 +97,7 @@ document.addEventListener("click",function(e){
             deleteIndex(index)
             showTasks()
         }
+        updateLocal()
     }
 })
 
@@ -92,6 +114,7 @@ document.addEventListener("click",function(e){
         e.target.className = "not-checked"
         let index = + e.target.getAttribute("target");
         changeStatus(index)
+
         if(e.target.parentElement.className === "task"){
         e.target.nextElementSibling.className ="not-done-content"}
     }
@@ -129,12 +152,14 @@ document.addEventListener("click",function(e){
         let index = +e.target.parentElement.parentElement.firstElementChild.firstElementChild.getAttribute("target")
         tasks[index].task = document.getElementsByClassName("updatedContent")[0].textContent;
         document.querySelector(".cancle-div").style.display = "none"
+        updateLocal()
         showTasks()
     }
 })
 
 function changeStatus(index){
     tasks[index].status = tasks[index].status === 0 ? 1 : 0;
+    updateLocal()
 }
 function deleteIndex(index){
     tasks.splice(index,1)
@@ -222,6 +247,7 @@ document.getElementsByClassName("check-all")[0].onclick = function(){
             el["status"] = 1
         })
     }
+    updateLocal()
     showTasks()
 }
 document.getElementsByClassName("uncheck-all")[0].onclick = function(){
@@ -230,9 +256,27 @@ document.getElementsByClassName("uncheck-all")[0].onclick = function(){
             el["status"] = 0
         })
     }
+    updateLocal()
     showTasks()
 }
 document.getElementsByClassName("delete-all")[0].onclick = function(){
     tasks=[]
+    updateLocal()
     showTasks()
+}
+
+//update local storage
+
+
+function updateLocal() {
+    let savedTasks = []
+    let savedStatus = []
+    for(let i = 0 ; i < tasks.length; i++)
+    {
+        let ob = tasks[i]
+        savedTasks.push(ob.task)
+        savedStatus.push(ob.status)
+    }
+    window.localStorage.status = savedStatus.join("**|**")
+    window.localStorage.tasks = savedTasks.join("**|**")
 }
